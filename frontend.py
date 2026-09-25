@@ -1,16 +1,10 @@
 import uuid
 
 import streamlit as st
-from importlib.metadata import version
 from langchain_core.messages import HumanMessage
-
-st.write("DEBUG - LangGraph version:", version("langgraph"))
-
 from langgraph.types import Command
 
 from graph import app
-
-version("langgraph")
 
 
 st.set_page_config(
