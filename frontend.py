@@ -1,11 +1,14 @@
 import uuid
 
 import streamlit as st
+import langgraph
 from langchain_core.messages import HumanMessage
+
+st.write("DEBUG - LangGraph version:", langgraph.__version__)
+
 from langgraph.types import Command
 
 from graph import app
-
 
 st.set_page_config(
     page_title="AI Travel Planner",
