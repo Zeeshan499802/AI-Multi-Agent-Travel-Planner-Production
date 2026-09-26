@@ -19,7 +19,7 @@ client = MultiServerMCPClient(
 
         "aviationstack": {
             "transport": "stdio",
-            "command": r"D:\Projects\MultiAgent_FlightTicket_withMCP\MultiAgent_FlightTicket\aviationstack-mcp\.venv\Scripts\python.exe",
+            "command": r"D:\Projects\Deploy Projects\MultiAgent_FlightTicket_withMCP\MultiAgent_FlightTicket\aviationstack-mcp\.venv\Scripts\python.exe",
             "args": [
                 "-m",
                 "aviationstack_mcp",
@@ -33,9 +33,9 @@ client = MultiServerMCPClient(
 
         "weather": {
             "transport": "stdio",
-            "command": r"D:\Projects\MultiAgent_FlightTicket_withMCP\MultiAgent_FlightTicket\.venv\Scripts\python.exe",
+            "command": r"D:\Projects\Deploy Projects\MultiAgent_FlightTicket_withMCP\MultiAgent_FlightTicket\.venv\Scripts\python.exe",
             "args": [
-                r"D:\Projects\MultiAgent_FlightTicket_withMCP\MultiAgent_FlightTicket\custom_wheater_serverMCP.py"
+                r"D:\Projects\Deploy Projects\MultiAgent_FlightTicket_withMCP\MultiAgent_FlightTicket\custom_wheater_serverMCP.py"
             ],
             "env": {
                 "WHEATER_API_KEY": WHEATER_API_KEY
