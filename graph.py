@@ -49,7 +49,6 @@ def route_after_agent(current_agent: str):
 
 
 
-
 def build_graph():
     graph = StateGraph(TravelState)
 
@@ -63,21 +62,54 @@ def build_graph():
     graph.add_node("final_response", final_response_agent)
 
     graph.add_edge(START, "supervisor")
-    graph.add_conditional_edges("supervisor", route_from_supervisor, ROUTE_MAP)
-    graph.add_conditional_edges("flight_agent", route_after_agent("flight_agent"), ROUTE_MAP)
-    graph.add_conditional_edges("hotel_agent", route_after_agent("hotel_agent"), ROUTE_MAP)
-    graph.add_conditional_edges("weather_agent", route_after_agent("weather_agent"), ROUTE_MAP)
-    graph.add_conditional_edges("budget_agent", route_after_agent("budget_agent"), ROUTE_MAP)
+
+    graph.add_conditional_edges(
+        "supervisor",
+        route_from_supervisor,
+        ROUTE_MAP
+    )
+
+    graph.add_conditional_edges(
+        "flight_agent",
+        route_after_agent("flight_agent"),
+        ROUTE_MAP
+    )
+
+    graph.add_conditional_edges(
+        "hotel_agent",
+        route_after_agent("hotel_agent"),
+        ROUTE_MAP
+    )
+
+    graph.add_conditional_edges(
+        "weather_agent",
+        route_after_agent("weather_agent"),
+        ROUTE_MAP
+    )
+
+    graph.add_conditional_edges(
+        "budget_agent",
+        route_after_agent("budget_agent"),
+        ROUTE_MAP
+    )
+
     graph.add_edge("itinerary_agent", "human_approval")
     graph.add_edge("human_approval", "final_response")
     graph.add_edge("final_response", END)
 
+    # PostgreSQL checkpointer
     if DATABASE_URL:
-        conn = psycopg.connect(DATABASE_URL)
+        conn = psycopg.connect(
+            DATABASE_URL,
+            autocommit=True
+        )
+
         checkpointer = PostgresSaver(conn)
         checkpointer.setup()
+
         return graph.compile(checkpointer=checkpointer)
 
+    # If DATABASE_URL is not available
     return graph.compile()
 
 
