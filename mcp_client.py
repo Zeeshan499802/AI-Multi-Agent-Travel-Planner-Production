@@ -173,26 +173,26 @@ client = MultiServerMCPClient(
         # AVIATIONSTACK MCP
         # ========================================================
 
-        "aviationstack": {
-            "transport": "stdio",
+        # "aviationstack": {
+        #     "transport": "stdio",
 
-            # Use the Python interpreter of the current
-            # environment.
-            #
-            # This works locally and on Streamlit Cloud.
-            "command": sys.executable,
+        #     # Use the Python interpreter of the current
+        #     # environment.
+        #     #
+        #     # This works locally and on Streamlit Cloud.
+        #     "command": sys.executable,
 
-            "args": [
-                "-m",
-                "aviationstack_mcp",
-                "mcp",
-                "run",
-            ],
+        #     "args": [
+        #         "-m",
+        #         "aviationstack_mcp",
+        #         "mcp",
+        #         "run",
+        #     ],
 
-            "env": {
-                "AVIATION_STACK_API_KEY": AVIATION_STACK_API_KEY,
-            },
-        },
+        #     "env": {
+        #         "AVIATION_STACK_API_KEY": AVIATION_STACK_API_KEY,
+        #     },
+        # },
 
 
         # ========================================================
