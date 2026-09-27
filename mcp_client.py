@@ -173,6 +173,23 @@ client = MultiServerMCPClient(
         # AVIATIONSTACK MCP
         # ========================================================
 
+        "aviationstack": {
+            "transport": "stdio",
+
+            "command": sys.executable,
+
+            "args": [
+                "-m",
+                "aviationstack_mcp",
+                "mcp",
+                "run",
+            ],
+
+            "env": {
+                "AVIATION_STACK_API_KEY": AVIATION_STACK_API_KEY,
+            },
+        },
+
         # "aviationstack": {
         #     "transport": "stdio",
 
