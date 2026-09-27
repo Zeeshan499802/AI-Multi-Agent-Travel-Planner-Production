@@ -199,23 +199,23 @@ client = MultiServerMCPClient(
         # WEATHER MCP
         # ========================================================
 
-        "weather": {
-            "transport": "stdio",
+        # "weather": {
+        #     "transport": "stdio",
 
-            # Use the Python interpreter of the current
-            # environment.
-            "command": sys.executable,
+        #     # Use the Python interpreter of the current
+        #     # environment.
+        #     "command": sys.executable,
 
-            # Use an absolute path so Streamlit Cloud does not
-            # depend on the current working directory.
-            "args": [
-                WEATHER_SERVER_PATH,
-            ],
+        #     # Use an absolute path so Streamlit Cloud does not
+        #     # depend on the current working directory.
+        #     "args": [
+        #         WEATHER_SERVER_PATH,
+        #     ],
 
-            "env": {
-                "WHEATER_API_KEY": WHEATER_API_KEY,
-            },
-        },
+        #     "env": {
+        #         "WHEATER_API_KEY": WHEATER_API_KEY,
+        #     },
+        # },
     }
 )
 
