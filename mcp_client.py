@@ -39,7 +39,7 @@ client = MultiServerMCPClient(
 
         # ========================================================
         # TAVILY MCP
-        # ========================================================
+        # # ========================================================
 
         "tavily": {
             "transport": "streamable_http",
@@ -51,9 +51,9 @@ client = MultiServerMCPClient(
         },
 
 
-        # ========================================================
-        # AVIATIONSTACK MCP
-        # ========================================================
+        # # ========================================================
+        # # AVIATIONSTACK MCP
+        # # ========================================================
 
         "aviationstack": {
             "transport": "stdio",
@@ -95,6 +95,13 @@ _tools_cache = None
 # ============================================================
 # GET ALL MCP TOOLS
 # ============================================================
+
+print("Weather server exists:", os.path.exists(WEATHER_SERVER_PATH))
+print("Weather server path:", WEATHER_SERVER_PATH)
+print("Python executable:", sys.executable)
+print("Weather API key loaded:", bool(WHEATER_API_KEY))
+
+
 
 async def get_tools():
     global _tools_cache

@@ -1,7 +1,8 @@
-# from mcp.server.fastmcp import FastMCP
-import requests
 import os
+
+import requests
 from dotenv import load_dotenv
+from mcp.server.fastmcp import FastMCP
 
 load_dotenv(override=True)
 
@@ -12,9 +13,11 @@ WHEATER_API_KEY = os.getenv("WHEATER_API_KEY")
 
 @mcp.tool()
 def get_current_weather(city: str):
+    """Get current weather for a city."""
+
     if not WHEATER_API_KEY:
         return {
-            "error": "WHEATER_API_KEY is not configured"
+            "error": "WHEATER_API_KEY is missing"
         }
 
     response = requests.get(
@@ -46,9 +49,11 @@ def get_current_weather(city: str):
 
 @mcp.tool()
 def get_forecast(city: str):
+    """Get 5 upcoming weather forecast entries for a city."""
+
     if not WHEATER_API_KEY:
         return {
-            "error": "WHEATER_API_KEY is not configured"
+            "error": "WHEATER_API_KEY is missing"
         }
 
     response = requests.get(
@@ -70,7 +75,7 @@ def get_forecast(city: str):
 
     forecast = []
 
-    for item in data["list"][:5]:
+    for item in data.get("list", [])[:5]:
         forecast.append(
             {
                 "datetime": item["dt_txt"],
