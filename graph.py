@@ -128,28 +128,4 @@ def build_graph():
             checkpointer=checkpointer
         )
 
-    # if DATABASE_URL:
-
-    #     pool = ConnectionPool(
-    #         conninfo=DATABASE_URL,
-    #         min_size=1,
-    #         max_size=5,
-    #         kwargs={
-    #             "autocommit": True,
-    #         },
-    #     )
-
-    #     checkpointer = PostgresSaver(pool)
-
-    #     checkpointer.setup()
-
-    #     return graph.compile(
-    #         checkpointer=checkpointer
-    #     )
-
-    # -------------------------
-    # Without PostgreSQL
-    # -------------------------
-
-
 app = build_graph()

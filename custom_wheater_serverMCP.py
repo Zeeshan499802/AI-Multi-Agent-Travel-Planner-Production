@@ -1,30 +1,38 @@
-from mcp.server.fastmcp import FastMCP
+# from mcp.server.fastmcp import FastMCP
 import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
-mcp = FastMCP("weather Server")
+mcp = FastMCP("weather_server")
 
 WHEATER_API_KEY = os.getenv("WHEATER_API_KEY")
-print(WHEATER_API_KEY)
+
 
 @mcp.tool()
 def get_current_weather(city: str):
+    if not WHEATER_API_KEY:
+        return {
+            "error": "WHEATER_API_KEY is not configured"
+        }
+
     response = requests.get(
         "https://api.openweathermap.org/data/2.5/weather",
         params={
-            "q" : city,
+            "q": city,
             "appid": WHEATER_API_KEY,
-            "units": "metric"
-        }
-    )  
+            "units": "metric",
+        },
+        timeout=20,
+    )
 
     data = response.json()
 
     if response.status_code != 200:
-        return data
+        return {
+            "error": data
+        }
 
     return {
         "city": data["name"],
@@ -32,37 +40,50 @@ def get_current_weather(city: str):
         "feels_like_c": data["main"]["feels_like"],
         "humidity": data["main"]["humidity"],
         "condition": data["weather"][0]["description"],
-        "wind_speed": data["wind"]["speed"]
+        "wind_speed": data["wind"]["speed"],
     }
+
 
 @mcp.tool()
 def get_forecast(city: str):
-    url = "https://api.openweathermap.org/data/2.5/forecast"
-    params = {
-        "q":city,
-        "appid":WHEATER_API_KEY,
-        "units":"metric"
-    }
+    if not WHEATER_API_KEY:
+        return {
+            "error": "WHEATER_API_KEY is not configured"
+        }
 
-    response = requests.get(url,params=params)
+    response = requests.get(
+        "https://api.openweathermap.org/data/2.5/forecast",
+        params={
+            "q": city,
+            "appid": WHEATER_API_KEY,
+            "units": "metric",
+        },
+        timeout=20,
+    )
+
     data = response.json()
+
+    if response.status_code != 200:
+        return {
+            "error": data
+        }
 
     forecast = []
 
-    # Return first 5 forecast entries
     for item in data["list"][:5]:
         forecast.append(
             {
                 "datetime": item["dt_txt"],
-                "temperature":item["main"]["temp"],
-                "weather":item["weather"][0]["description"]
+                "temperature": item["main"]["temp"],
+                "weather": item["weather"][0]["description"],
             }
         )
 
     return {
-        "city":city,
-        "forecast":forecast
+        "city": city,
+        "forecast": forecast,
     }
+
 
 if __name__ == "__main__":
     mcp.run()
